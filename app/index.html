@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vice Cover Studio — GTA 6-style cover art maker</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark">VC</span>
+    <div>
+      <h1>Vice Cover Studio</h1>
+      <p>Turn your photos into GTA 6-style cover art. Your photos never leave this machine.</p>
+    </div>
+  </div>
+  <div class="top-actions">
+    <label class="upload-btn">Upload photo
+      <input id="photoInput" type="file" accept="image/*" multiple hidden>
+    </label>
+  </div>
+</header>
+
+<main class="workspace">
+  <section class="preview-pane">
+    <div class="canvas-wrap">
+      <canvas id="preview" width="1080" height="1080"></canvas>
+      <div id="shotView" class="shot-view" hidden>
+        <img id="shotImage" alt="Exported cover preview">
+      </div>
+    </div>
+    <p class="hint">Click a panel to select it, then drag the photo inside it to reposition. Use the zoom slider to crop tighter.</p>
+  </section>
+
+  <aside class="controls" id="controls">
+    <section class="group">
+      <h2>1 · Photos</h2>
+      <div class="samples" id="sampleRow">
+        <button type="button" class="sample" data-sample="samples/sunset-beach.jpg">Sunset beach</button>
+        <button type="button" class="sample" data-sample="samples/neon-street.jpg">Neon street</button>
+        <button type="button" class="sample" data-sample="samples/skyline-palms.jpg">Skyline palms</button>
+      </div>
+      <p class="note">Tap a sample, or upload your own photo. Each panel can hold its own photo.</p>
+    </section>
+
+    <section class="group">
+      <h2>2 · Layout</h2>
+      <div class="layouts" id="layoutRow">
+        <button type="button" class="layout" data-layout="trio">Sunset Trio</button>
+        <button type="button" class="layout" data-layout="grid">Vice Grid</button>
+        <button type="button" class="layout" data-layout="duo">Split Duo</button>
+        <button type="button" class="layout" data-layout="full">Full Bleed</button>
+      </div>
+      <div class="panels" id="panelRow"></div>
+    </section>
+
+    <section class="group">
+      <h2>3 · Selected panel</h2>
+      <label class="field">Zoom
+        <input id="zoomRange" type="range" min="1" max="3" step="0.01" value="1.15">
+      </label>
+      <label class="field">Colour grade
+        <select id="gradeSelect">
+          <option value="sunset">Sunset — warm orange &amp; pink</option>
+          <option value="neon">Neon — pink &amp; cyan nights</option>
+          <option value="noir">Noir — high contrast mono</option>
+          <option value="natural">Natural — photo as shot</option>
+        </select>
+      </label>
+      <button type="button" class="ghost" id="resetPanel">Reset this panel</button>
+    </section>
+
+    <section class="group">
+      <h2>4 · Caption</h2>
+      <label class="field">Main caption
+        <input id="captionInput" type="text" value="VICE CITY NIGHTS" maxlength="28">
+      </label>
+      <label class="field">Sub caption
+        <input id="subInput" type="text" value="A STORY IN EVERY PANEL" maxlength="40">
+      </label>
+      <label class="field">Caption size
+        <input id="captionSize" type="range" min="60" max="160" step="1" value="110">
+      </label>
+    </section>
+
+    <section class="group">
+      <h2>5 · Export</h2>
+      <div class="sizes" id="sizeRow">
+        <label><input type="radio" name="size" value="1080x1080" checked> 1080 × 1080</label>
+        <label><input type="radio" name="size" value="1080x1350"> 1080 × 1350</label>
+        <label><input type="radio" name="size" value="1920x1080"> 1920 × 1080</label>
+      </div>
+      <button type="button" class="export" id="exportBtn">Export PNG</button>
+      <p class="note">Exports a PNG at the size you picked. Nothing is uploaded.</p>
+    </section>
+  </aside>
+</main>
+
+<script type="module" src="src/main.js"></script>
+</body>
+</html>
