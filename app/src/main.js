@@ -255,6 +255,7 @@ document.getElementById('photoInput').addEventListener('change', async (e) => {
 
 async function showShot(sizeKey) {
   controls.style.display = 'none';
+  document.querySelector('.topbar').style.display = 'none';
   document.querySelector('.hint').style.display = 'none';
   preview.style.display = 'none';
   const blob = await exportCover(state, sizeKey);

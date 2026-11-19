@@ -191,7 +191,8 @@ function fillPlaceholder(ctx, rect, grade) {
   ctx.restore();
 }
 
-// One palm silhouette: a curved trunk and a crown of drooping fronds.
+// One palm silhouette: a crown of drooping fronds hanging in from the top
+// edge, with a short trunk stub running up out of the frame.
 function drawPalm(ctx, x, y, size, lean, color) {
   ctx.save();
   ctx.translate(x, y);
@@ -199,45 +200,45 @@ function drawPalm(ctx, x, y, size, lean, color) {
   ctx.scale(size, size);
   ctx.fillStyle = color;
   ctx.strokeStyle = color;
-  // Trunk: a gently curving stem.
+  // Trunk stub: a short stem running up out of the frame.
   ctx.lineWidth = 0.055;
   ctx.lineCap = 'round';
   ctx.beginPath();
   ctx.moveTo(0, 0);
-  ctx.quadraticCurveTo(0.06, -0.5, 0.02, -1);
+  ctx.quadraticCurveTo(0.05, -0.2, 0.02, -0.42);
   ctx.stroke();
-  // Crown fronds: long drooping blades fanning out from the top.
+  // Crown fronds: long drooping blades fanning down from the crown.
   const fronds = 8;
   for (let i = 0; i < fronds; i++) {
-    const a = -Math.PI * 0.08 - (i / (fronds - 1)) * Math.PI * 0.84;
+    const a = Math.PI * 0.08 + (i / (fronds - 1)) * Math.PI * 0.84;
     const len = 0.62 + 0.16 * Math.sin(i * 1.7);
-    const tipX = 0.02 + Math.cos(a) * len;
-    const tipY = -1 + Math.sin(a) * len * 0.9 + 0.28;
-    const midX = 0.02 + Math.cos(a) * len * 0.55;
-    const midY = -1 + Math.sin(a) * len * 0.55 - 0.14;
+    const tipX = Math.cos(a) * len;
+    const tipY = Math.sin(a) * len * 0.9 + 0.22;
+    const midX = Math.cos(a) * len * 0.55;
+    const midY = Math.sin(a) * len * 0.55 - 0.12;
     ctx.beginPath();
-    ctx.moveTo(0.02, -1);
+    ctx.moveTo(0, 0);
     ctx.quadraticCurveTo(midX, midY, tipX, tipY);
-    ctx.quadraticCurveTo(midX + 0.05, midY + 0.1, 0.02, -1);
+    ctx.quadraticCurveTo(midX + 0.05, midY + 0.1, 0, 0);
     ctx.closePath();
     ctx.fill();
   }
   // A few coconuts under the crown.
   ctx.beginPath();
-  ctx.arc(-0.03, -0.94, 0.045, 0, Math.PI * 2);
-  ctx.arc(0.07, -0.93, 0.04, 0, Math.PI * 2);
+  ctx.arc(-0.04, 0.06, 0.045, 0, Math.PI * 2);
+  ctx.arc(0.06, 0.07, 0.04, 0, Math.PI * 2);
   ctx.fill();
   ctx.restore();
 }
 
-// Palm clusters along the top edge, the signature skyline of the art.
+// Palm clusters hanging in along the top edge, the signature skyline of the art.
 function drawPalms(ctx, width, height) {
   const color = 'rgba(16,6,32,0.92)';
   const s = width / 1080;
-  drawPalm(ctx, width * 0.06, height * 0.02, 150 * s, -0.12, color);
-  drawPalm(ctx, width * 0.16, height * 0.015, 110 * s, 0.1, color);
-  drawPalm(ctx, width * 0.94, height * 0.02, 150 * s, 0.12, color);
-  drawPalm(ctx, width * 0.84, height * 0.015, 105 * s, -0.08, color);
+  drawPalm(ctx, width * 0.05, -height * 0.01, 150 * s, -0.1, color);
+  drawPalm(ctx, width * 0.17, -height * 0.015, 105 * s, 0.08, color);
+  drawPalm(ctx, width * 0.95, -height * 0.01, 150 * s, 0.1, color);
+  drawPalm(ctx, width * 0.83, -height * 0.015, 100 * s, -0.06, color);
 }
 
 // Split the caption into lines that fit the cover width.
@@ -272,7 +273,7 @@ function drawCaption(ctx, width, height, state) {
   const subSize = Math.max(18, size * 0.2);
   const totalH = blockH + subSize * 1.9;
   // Tilt the whole caption block a touch, poster style.
-  ctx.translate(pad, height - pad - totalH + blockH);
+  ctx.translate(pad, height - pad - totalH);
   ctx.rotate(-0.028);
   ctx.shadowColor = 'rgba(255,46,136,0.65)';
   ctx.shadowBlur = size * 0.16;
@@ -282,7 +283,7 @@ function drawCaption(ctx, width, height, state) {
   ctx.lineWidth = Math.max(4, size * 0.075);
   ctx.fillStyle = '#ffffff';
   lines.forEach((line, i) => {
-    const y = i * lineHeight;
+    const y = size * 0.85 + i * lineHeight;
     ctx.strokeText(line, 0, y);
     ctx.fillText(line, 0, y);
   });

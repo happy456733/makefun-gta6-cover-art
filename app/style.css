@@ -107,6 +107,7 @@ body {
 #preview:active { cursor: grabbing; }
 
 .shot-view { display: grid; place-items: center; width: 100%; }
+.shot-view[hidden] { display: none; }
 .shot-view img { max-width: 100%; max-height: calc(100vh - 220px); border-radius: 6px; }
 
 .hint { color: var(--ink-dim); font-size: 13px; margin: 10px 4px 0; }
